@@ -4,6 +4,10 @@
 
 ![workflow](example_workflow/workflow.webp)
 
+## 更新
+
+- [ 1.0.1 ] 1. 提升运行速度，2. 优化工作流，3. 字幕默认保存为utf-8编码
+
 ## 功能
 
 - [x] 语音识别
