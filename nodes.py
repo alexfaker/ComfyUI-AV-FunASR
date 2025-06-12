@@ -6,6 +6,7 @@ import torchaudio
 import torchvision.utils as vutils
 import torch
 import json
+import uuid
 
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
@@ -59,19 +60,31 @@ class AVSpeechTimestamp:
         if AVSpeechTimestamp.infer_ins_cache is None:
             model_root = os.path.join(folder_paths.models_dir, "ASR/FunASR")
             model_dir = os.path.join(model_root, name_maps_ms["fa-zh"])
+            # vad_model = os.path.join(model_root, name_maps_ms["fsmn-vad"])
             
             os.makedirs(model_dir, exist_ok=True)
-            AVSpeechTimestamp.infer_ins_cache = pipeline(
-                task=Tasks.speech_timestamp,
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+
+            AVSpeechTimestamp.infer_ins_cache = AutoModel(
                 model=model_dir,
                 model_revision="v2.0.4",
-                output_dir=temp_dir
+                device=device,  # GPU加速
+                disable_update=True
             )
-        # save audio
-        audio_save_path = os.path.join(temp_dir, f"{int(time.time())}.wav")
-        torchaudio.save(audio_save_path, audio['waveform'].squeeze(0), audio["sample_rate"])
 
-        rec_result = AVSpeechTimestamp.infer_ins_cache(input=(audio_save_path,text), data_type=("sound", "text"))
+        # save audio
+        uuidv4 = str(uuid.uuid4())
+        audio_save_path = os.path.join(temp_dir, f"{uuidv4}.wav")
+        waveform = audio['waveform']
+        sr = audio["sample_rate"]
+        waveform = torchaudio.functional.resample(waveform, sr, 16000)
+        torchaudio.save(audio_save_path, waveform.squeeze(0), 16000)
+
+        rec_result = AVSpeechTimestamp.infer_ins_cache.generate(
+            input=(audio_save_path, text), 
+            data_type=("sound", "text"),
+        )
+        # print(rec_result)
         if rec_result:
             rec_result = rec_result[0]
 
@@ -86,7 +99,7 @@ class AVSpeechTimestamp:
         # jr = json.dumps(rec_result, indent=4)
         text = rec_result.get("text")
         jr = json.dumps(rec_result, ensure_ascii=False)
-        print(text, jr)
+        # print(text, jr)
         return (text, jr, rec_result)
     
 
@@ -122,28 +135,35 @@ class AVASRTimestamp:
                 model=model_dir,
                 vad_model=vad_model,
                 punc_model=None, #"ct-punc",
-                device=device  # GPU加速
+                device=device,  # GPU加速
+                disable_update=True
             )
-        # save audio
-        audio_save_path = os.path.join(temp_dir, f"{int(time.time())}.wav")
-        torchaudio.save(audio_save_path, audio['waveform'].squeeze(0), audio["sample_rate"])
+        # save 
+        uuidv4 = str(uuid.uuid4())
+        audio_save_path = os.path.join(temp_dir, f"{uuidv4}.wav")
+        # 重新采样为16k
+        waveform = audio['waveform']
+        sr = audio["sample_rate"]
+        waveform = torchaudio.functional.resample(waveform, sr, 16000)
+        torchaudio.save(audio_save_path, waveform.squeeze(0), 16000)
 
         rec_result = AVASRTimestamp.infer_ins_cache.generate(input=audio_save_path, batch_size_s=batch_size_s)
+        # print(rec_result)
         if rec_result:
             rec_result = rec_result[0]
 
         # infer
         if unload_model:
             import gc
-            if AVSpeechTimestamp.infer_ins_cache is not None:
-                AVSpeechTimestamp.infer_ins_cache = None
+            if AVASRTimestamp.infer_ins_cache is not None:
+                AVASRTimestamp.infer_ins_cache = None
                 gc.collect()
                 torch.cuda.empty_cache()
-                print("AVSpeechTimestamp memory cleanup successful")
+                print("AVASRTimestamp memory cleanup successful")
         # jr = json.dumps(rec_result, indent=4)
         text = rec_result.get("text")
         jr = json.dumps(rec_result, ensure_ascii=False)
-        print((text, jr, rec_result))
+        # print((text, jr, rec_result))
         return (text, jr, rec_result)
     
 
@@ -197,7 +217,7 @@ class AVSaveSubtitles:
     def save_subtitles(self, subtitles, filename_prefix="subtitles"):
         filename = f"{filename_prefix}-{time.time()}.srt"
         save_path = os.path.join(self.output_dir, filename)
-        with open(save_path, "w") as f:
+        with open(save_path, "w", encoding='utf-8') as f:
             f.write(subtitles)
 
         return { "ui": { "text": save_path } }

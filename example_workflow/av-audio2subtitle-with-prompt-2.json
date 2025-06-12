@@ -1,0 +1,440 @@
+{
+  "id": "377e0192-2ad2-408a-871c-6a86cf058f73",
+  "revision": 0,
+  "last_node_id": 46,
+  "last_link_id": 82,
+  "nodes": [
+    {
+      "id": 43,
+      "type": "easy showAnything",
+      "pos": [
+        737.1539306640625,
+        51.4323844909668
+      ],
+      "size": [
+        478.719970703125,
+        307.6799621582031
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 80
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "{\"key\": \"rand_key_gUe52RvEJgwBu\", \"text\": \"3 分 钟 即 享 q 弹 面 条 裹 满 浓 郁 汤 汁 每 一 口 都 香 到 上 头 无 论 是 深 夜 加 班 追 剧 嘴 馋 还 是 懒 人 速 食 x 泡 面 都 能 瞬 间 满 足 你 的 胃 经 典 红 烧 酸 辣 劲 爽 香 浓 豚 骨 多 种 口 味 总 有 一 款 让 你 欲 罢 不 能\", \"timestamp\": [[170, 330], [330, 510], [510, 670], [670, 910], [910, 1150], [1410, 1470], [1470, 1670], [1670, 1830], [1830, 2050], [2050, 2290], [2590, 2730], [2730, 2850], [2850, 2930], [2930, 3090], [3090, 3250], [3250, 3470], [3470, 3710], [3930, 4070], [4070, 4130], [4130, 4310], [4310, 4530], [4530, 4690], [4690, 4810], [4810, 4970], [4970, 5190], [5190, 5250], [5250, 5490], [5970, 6130], [6130, 6290], [6290, 6430], [6430, 6590], [6590, 6650], [6650, 6830], [6830, 7010], [7010, 7250], [7450, 7630], [7630, 7790], [7790, 8010], [8010, 8070], [8070, 8310], [8550, 8670], [8670, 8830], [8830, 8950], [8950, 9150], [9150, 9350], [9350, 9430], [9430, 9670], [9910, 10150], [10230, 10410], [10410, 10610], [10610, 10730], [10730, 10790], [10790, 10970], [10970, 11130], [11130, 11290], [11290, 11470], [11470, 11590], [11590, 11690], [11690, 11770], [11770, 11950], [11950, 12190], [12690, 12890], [12890, 13070], [13070, 13310], [13310, 13370], [13370, 13610], [13910, 14070], [14070, 14230], [14230, 14470], [14470, 14710], [14990, 15170], [15170, 15230], [15230, 15430], [15430, 15670], [15670, 15910], [16129, 16309], [16309, 16490], [16490, 16550]]}"
+      ]
+    },
+    {
+      "id": 42,
+      "type": "easy showAnything",
+      "pos": [
+        1252.9384765625,
+        -201.37600708007812
+      ],
+      "size": [
+        544.5440673828125,
+        575.8159790039062
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 73
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            77
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "1\n00:00:00,170 --> 00:00:00,910\n3分钟即享\n\n2\n00:00:00,910 --> 00:00:02,930\nQ弹面条 裹满浓郁\n\n3\n00:00:02,930 --> 00:00:04,810\n汤汁 每一口都香到上头\n\n4\n00:00:04,810 --> 00:00:07,010\n无论是深夜加班、追剧嘴馋\n\n5\n00:00:07,010 --> 00:00:09,150\n还是懒人速食 X泡面都\n\n6\n00:00:09,150 --> 00:00:10,730\n能瞬间满足你的胃\n\n7\n00:00:10,730 --> 00:00:12,890\n经典红烧、酸辣劲爽、香浓\n\n8\n00:00:12,890 --> 00:00:15,230\n豚骨 多种口味 总有一款\n\n9\n00:00:15,230 --> 00:00:16,550\n让你欲罢不能\n\n"
+      ]
+    },
+    {
+      "id": 39,
+      "type": "easy showAnything",
+      "pos": [
+        734.82470703125,
+        -204.00804138183594
+      ],
+      "size": [
+        489.3119812011719,
+        201.248046875
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 79
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.2.9",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "3 分 钟 即 享 q 弹 面 条 裹 满 浓 郁 汤 汁 每 一 口 都 香 到 上 头 无 论 是 深 夜 加 班 追 剧 嘴 馋 还 是 懒 人 速 食 x 泡 面 都 能 瞬 间 满 足 你 的 胃 经 典 红 烧 酸 辣 劲 爽 香 浓 豚 骨 多 种 口 味 总 有 一 款 让 你 欲 罢 不 能"
+      ]
+    },
+    {
+      "id": 44,
+      "type": "AVSaveSubtitles",
+      "pos": [
+        1844.3179931640625,
+        -202.0580291748047
+      ],
+      "size": [
+        270,
+        82
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "subtitles",
+          "type": "STRING",
+          "widget": {
+            "name": "subtitles"
+          },
+          "link": 77
+        }
+      ],
+      "outputs": [],
+      "title": "保存字幕文件到output",
+      "properties": {
+        "aux_id": "ComfyUI-AV-FunASR.git",
+        "ver": "6840820f8d34ffb273e8776b8ba73a8fb0e89d17",
+        "Node name for S&R": "AVSaveSubtitles"
+      },
+      "widgets_values": [
+        "",
+        "subtitles"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadAudio",
+      "pos": [
+        51.75614929199219,
+        -214.3138885498047
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            78
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.32",
+        "Node name for S&R": "LoadAudio"
+      },
+      "widgets_values": [
+        "22_jidaohuman-megatts3_0.flac",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 41,
+      "type": "AVFormat2Subtitle",
+      "pos": [
+        741.9202880859375,
+        -337.8655090332031
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "asr_result",
+          "type": "ASRRESULT",
+          "link": 81
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 72
+        }
+      ],
+      "outputs": [
+        {
+          "name": "subtitle",
+          "type": "STRING",
+          "links": [
+            73
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "ComfyUI-AV-FunASR.git",
+        "ver": "6840820f8d34ffb273e8776b8ba73a8fb0e89d17",
+        "Node name for S&R": "AVFormat2Subtitle"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 45,
+      "type": "AVSpeechTimestamp",
+      "pos": [
+        350.81390380859375,
+        -202.5904083251953
+      ],
+      "size": [
+        270,
+        122
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 78
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 82
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            79
+          ]
+        },
+        {
+          "name": "json_result",
+          "type": "STRING",
+          "links": [
+            80
+          ]
+        },
+        {
+          "name": "asr_result",
+          "type": "ASRRESULT",
+          "links": [
+            81
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "ComfyUI-AV-FunASR.git",
+        "ver": "6840820f8d34ffb273e8776b8ba73a8fb0e89d17",
+        "Node name for S&R": "AVSpeechTimestamp"
+      },
+      "widgets_values": [
+        "",
+        false
+      ]
+    },
+    {
+      "id": 25,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        58.23122024536133,
+        -22.136831283569336
+      ],
+      "size": [
+        259.0320129394531,
+        168.8079833984375
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            72,
+            82
+          ]
+        }
+      ],
+      "title": "校准文字",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.32",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "3分钟即享，Q弹面条，裹满浓郁汤汁，每一口都香到上头！无论是深夜加班、追剧嘴馋，还是懒人速食，X泡面都能瞬间满足你的胃！经典红烧、酸辣劲爽、香浓豚骨，多种口味，总有一款让你欲罢不能。"
+      ]
+    },
+    {
+      "id": 46,
+      "type": "Note",
+      "pos": [
+        81.41957092285156,
+        204.1630096435547
+      ],
+      "size": [
+        574.4384155273438,
+        157.96160888671875
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "原理介绍：https://mp.weixin.qq.com/s/ilGpgS5i_ZbE3SdA6godyw\n\nBy Aven，公众号：智效笔谈"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      72,
+      25,
+      0,
+      41,
+      1,
+      "STRING"
+    ],
+    [
+      73,
+      41,
+      0,
+      42,
+      0,
+      "*"
+    ],
+    [
+      77,
+      42,
+      0,
+      44,
+      0,
+      "STRING"
+    ],
+    [
+      78,
+      2,
+      0,
+      45,
+      0,
+      "AUDIO"
+    ],
+    [
+      79,
+      45,
+      0,
+      39,
+      0,
+      "*"
+    ],
+    [
+      80,
+      45,
+      1,
+      43,
+      0,
+      "*"
+    ],
+    [
+      81,
+      45,
+      2,
+      41,
+      0,
+      "ASRRESULT"
+    ],
+    [
+      82,
+      25,
+      0,
+      45,
+      1,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "frontendVersion": "1.18.9",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
