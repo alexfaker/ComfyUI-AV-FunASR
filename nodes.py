@@ -7,6 +7,7 @@ import torchvision.utils as vutils
 import torch
 import json
 import uuid
+from comfy.comfy_types import FileLocator
 
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
@@ -215,12 +216,21 @@ class AVSaveSubtitles:
     DESCRIPTION = "Saves the subtitles to a file."
 
     def save_subtitles(self, subtitles, filename_prefix="subtitles"):
-        filename = f"{filename_prefix}-{time.time()}.srt"
-        save_path = os.path.join(self.output_dir, filename)
-        with open(save_path, "w", encoding='utf-8') as f:
-            f.write(subtitles)
+        filename_prefix += self.prefix_append
+        full_output_folder, filename, counter, subfolder, filename_prefix = folder_paths.get_save_image_path(filename_prefix, self.output_dir)
+        results: list[FileLocator] = []
 
-        return { "ui": { "text": save_path } }
+        file = f"{filename}_{counter:05}_.srt"
+        with open(os.path.join(full_output_folder, file), 'w', encoding='utf-8') as f:
+            f.write(subtitles)
+        results.append({
+            "filename": file,
+            "subfolder": subfolder,
+            "type": self.type
+        })
+        counter += 1
+
+        return { "ui": { "subtitles": results } }
 
 
     
