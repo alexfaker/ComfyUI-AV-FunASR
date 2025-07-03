@@ -1,6 +1,7 @@
 ## ComfyUI FunAsr Nodes
 
 使用FunAsr进行语音识别，并转为文本或字幕文件。
+python版本  3.13
 
 ![workflow](example_workflow/workflow.webp)
 
@@ -20,14 +21,15 @@
 cd ComfyUI/custom_nodes
 git clone https://github.com/avenstack/ComfyUI-AV-FunASR.git
 cd ComfyUI-AV-FunASR
+在comfyui的python虚拟环境安装依赖
 pip install -r requirements.txt
 ```
 
 ## 模型下载
 
 1. [语音识别](https://modelscope.cn/models/iic/speech_seaco_paraformer_large_asr_nat-zh-cn-16k-common-vocab8404-pytorch/files)
-2. [语音端点检测](modelscope.cn/models/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch/files)
-3. [语音时间戳预测](modelscope.cn/models/iic/speech_timestamp_prediction-v1-16k-offline)
+2. [语音端点检测](https://modelscope.cn/models/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch/files)
+3. [语音时间戳预测](https://modelscope.cn/models/iic/speech_timestamp_prediction-v1-16k-offline)
 
 模型存放目录：`models/ASR/FunASR/iic`
 ```
@@ -61,7 +63,3 @@ pip install -r requirements.txt
         ├── seg_dict
         └── tokens.json
 ```
-
-## 鸣谢
-
-- [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
