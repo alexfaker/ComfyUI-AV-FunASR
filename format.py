@@ -22,27 +22,29 @@ class PunctuationConfig:
     # 断句标点符号（用于分词）
     SENTENCE_BREAK_PUNCTUATION = "，。；！？：""''（）【】《》〈〉「」『』〔〕…—、·‧丶,.;!?:\"'()[]{}<>/-\\|"
     
-    # 标点符号优先级映射
+    # 标点符号优先级映射（数字越小优先级越高，强制断句）
     PUNCTUATION_PRIORITY = {
-        # 强断句符号 (优先级1-2)
+        # 最强断句符号 (优先级1-3) - 立即断句
         '。': 1, '.': 1,
         '？': 2, '?': 2,
         '！': 3, '!': 3,
         
-        # 中断句符号 (优先级3-4)
-        '；': 4, ';': 4,
-        '：': 5, ':': 5,
-        '…': 6, '—': 6,
+        # 强断句符号 (优先级4-6) - 优先断句
+        '，': 4, ',': 4,
+        '；': 5, ';': 5,
+        '：': 6, ':': 6,
         
-        # 弱断句符号 (优先级5-6)
-        '，': 7, ',': 7,
-        '、': 8, '·': 8, '‧': 8,
+        # 中断句符号 (优先级7-8) - 常用断句
+        '、': 7, '·': 7, '‧': 7,
+        '…': 8, '—': 8,
         
-        # 配对符号 (优先级7-8)
+        # 配对符号 (优先级9-12) - 按需断句
         '"': 9, '"': 9, "'": 9, "'": 9, '"': 9, "'": 9,
         '（': 10, '）': 10, '(': 10, ')': 10,
         '【': 11, '】': 11, '[': 11, ']': 11,
         '《': 12, '》': 12, '<': 12, '>': 12,
+        
+        # 其他配对符号 (优先级13-15)
         '〈': 13, '〉': 13, '「': 13, '」': 13,
         '『': 14, '』': 14, '〔': 14, '〕': 14,
         '{': 15, '}': 15,
@@ -214,8 +216,8 @@ class Format2Subtitle:
         """获取标点符号优先级，数字越小优先级越高"""
         return PunctuationConfig.get_priority(char)
 
-    def find_best_punctuation_index(self, words, min_length=3, max_length=15):
-        """在指定范围内查找最佳断句位置"""
+    def find_best_punctuation_index(self, words, min_length=1, max_length=20):
+        """在指定范围内查找最佳断句位置（优化后支持更积极的断句）"""
         best_index = -1
         best_priority = 999
         
@@ -230,6 +232,7 @@ class Format2Subtitle:
                     if priority < best_priority:
                         best_priority = priority
                         best_index = i
+                        return best_index
         
         return best_index
 
@@ -244,12 +247,13 @@ class Format2Subtitle:
 
     def align_char_timestamps(self, original_sentence, recognized_text, word_timestamps, text_length=12):
         """
-        将词语级时间戳对齐到字符级时间戳
+        将词语级时间戳对齐到字符级时间戳（优化后支持更精确的断句）
         
         参数:
             original_sentence (str): 带标点的原始句子
             recognized_text (str): 空格分隔的无标点识别文本
             word_timestamps (list): 词语级时间戳列表 [[start1, end1], [start2, end2], ...]
+            text_length (int): 默认分割长度，减少到6以避免长字幕
             
         返回:
             list: 原始字符级时间戳列表 [[char_start, char_end], ...]
@@ -261,16 +265,17 @@ class Format2Subtitle:
         words = self.tokenize_text(original_sentence, language='auto')
 
         print(len(original_sentence), len(word_timestamps), len(recognized_text))
+        print(words)
         recognized_words = recognized_text.split()
 
         # 4. 为每个字符分配时间戳
         char_timestamps = []
         
         while True:
-            if len(words) < 3:  # 调整最小长度要求
+            if len(words) < 1:  # 调整最小长度要求为1，处理单个字符
                 break
-            # 查询列表中的最佳标点符号断句位置
-            punctuation_indices = self.find_best_punctuation_index(words, min_length=3, max_length=15)
+            # 查询列表中的最佳标点符号断句位置（使用优化后的参数）
+            punctuation_indices = self.find_best_punctuation_index(words, min_length=1, max_length=20)
             print("最佳断句位置：", punctuation_indices)
             
             # 如果找到了合适的标点符号位置，使用标点符号断句
@@ -278,7 +283,7 @@ class Format2Subtitle:
                 _words = words[:punctuation_indices + 1]  # 包含标点符号
                 words = words[punctuation_indices + 1:]  # 跳过标点符号
             else:
-                # 如果没有找到合适的标点符号，使用默认长度分割
+                # 如果没有找到合适的标点符号，使用更小的默认长度分割
                 split_length = min(text_length, len(words))
                 _words = words[:split_length]
                 words = words[split_length:]
