@@ -10,3 +10,4 @@ librosa==0.11.0
 soundfile==0.13.1
 torch-complex==0.4.4
 av==14.2.0
+requests==2.31.0 

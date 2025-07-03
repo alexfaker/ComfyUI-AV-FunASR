@@ -147,7 +147,7 @@
       "outputs": [],
       "title": "保存字幕文件到output",
       "properties": {
-        "aux_id": "ComfyUI-AV-FunASR.git",
+        "aux_id": "avenstack/ComfyUI-AV-FunASR",
         "ver": "6840820f8d34ffb273e8776b8ba73a8fb0e89d17",
         "Node name for S&R": "AVSaveSubtitles"
       },
@@ -230,7 +230,7 @@
         }
       ],
       "properties": {
-        "aux_id": "ComfyUI-AV-FunASR.git",
+        "aux_id": "avenstack/ComfyUI-AV-FunASR",
         "ver": "6840820f8d34ffb273e8776b8ba73a8fb0e89d17",
         "Node name for S&R": "AVFormat2Subtitle"
       },
@@ -291,7 +291,7 @@
         }
       ],
       "properties": {
-        "aux_id": "ComfyUI-AV-FunASR.git",
+        "aux_id": "avenstack/ComfyUI-AV-FunASR",
         "ver": "6840820f8d34ffb273e8776b8ba73a8fb0e89d17",
         "Node name for S&R": "AVSpeechTimestamp"
       },

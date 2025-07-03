@@ -6,7 +6,7 @@ license = {file = "LICENSE"}
 dependencies = ["modelscope", "sortedcontainers", "simplejson", "datasets==2.16.0", "Levenshtein", "soundfile"]
 
 [project.urls]
-Repository = "https://github.com/avenstack/ComfyUI-AV-FunASR"
+Repository = "https://github.com/alexfaker/ComfyUI-AV-FunASR"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]

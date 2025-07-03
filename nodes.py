@@ -233,6 +233,96 @@ class AVSaveSubtitles:
         return { "ui": { "subtitles": results } }
 
 
+class AVLoadAudioFromURL:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "url": ("STRING", {"default": "", "tooltip": "音频文件的URL链接"}),
+                "timeout": ("INT", {"default": 30, "min": 5, "max": 300, "step": 1, "tooltip": "下载超时时间（秒）"}),
+            },
+        }
+
+    RETURN_TYPES = ("AUDIO",)
+    RETURN_NAMES = ("audio",)
+    FUNCTION = "load_audio_from_url"
+    CATEGORY = "Aven/AV-FunASR"
+    DESCRIPTION = "从URL链接加载音频文件"
+
+    def load_audio_from_url(self, url, timeout=30):
+        import requests
+        import io
+        import tempfile
+        
+        try:
+            # 验证URL格式
+            if not url or not url.startswith(('http://', 'https://')):
+                raise ValueError("请提供有效的HTTP或HTTPS URL")
+            
+            # 设置请求头，模拟浏览器访问
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+            
+            # 下载音频文件
+            print(f"正在从URL下载音频: {url}")
+            with requests.get(url, stream=True, timeout=timeout, headers=headers) as response:
+                response.raise_for_status()
+                
+                # 检查内容类型
+                content_type = response.headers.get('content-type', '')
+                print(f"音频文件类型: {content_type}")
+                
+                # 获取音频数据
+                audio_data = response.content
+                
+                # 创建临时文件
+                temp_dir = folder_paths.get_temp_directory()
+                os.makedirs(temp_dir, exist_ok=True)
+                
+                # 根据URL或content-type确定文件扩展名
+                file_extension = '.wav'  # 默认扩展名
+                if 'audio/mpeg' in content_type or url.lower().endswith('.mp3'):
+                    file_extension = '.mp3'
+                elif 'audio/wav' in content_type or url.lower().endswith('.wav'):
+                    file_extension = '.wav'
+                elif 'audio/flac' in content_type or url.lower().endswith('.flac'):
+                    file_extension = '.flac'
+                elif 'audio/x-m4a' in content_type or url.lower().endswith('.m4a'):
+                    file_extension = '.m4a'
+                elif url.lower().endswith(('.mp3', '.wav', '.flac', '.m4a', '.ogg', '.aac')):
+                    file_extension = '.' + url.split('.')[-1].lower()
+                
+                # 保存临时文件
+                temp_filename = f"url_audio_{uuid.uuid4().hex}{file_extension}"
+                temp_path = os.path.join(temp_dir, temp_filename)
+                
+                with open(temp_path, 'wb') as f:
+                    f.write(audio_data)
+                
+                print(f"音频文件已保存到临时路径: {temp_path}")
+                
+                # 使用torchaudio加载音频
+                waveform, sample_rate = torchaudio.load(temp_path)
+                
+                # 清理临时文件
+                try:
+                    os.remove(temp_path)
+                except:
+                    pass
+                
+                print(f"音频加载成功: 采样率={sample_rate}, 波形形状={waveform.shape}")
+                
+                # 返回标准的AUDIO格式
+                return ({"waveform": waveform, "sample_rate": sample_rate},)
+                
+        except requests.exceptions.Timeout:
+            raise RuntimeError(f"下载超时: URL={url}, 超时时间={timeout}秒")
+        except requests.exceptions.RequestException as e:
+            raise RuntimeError(f"网络请求失败: {str(e)}")
+        except Exception as e:
+            raise RuntimeError(f"加载音频失败: {str(e)}")
+
     
 
 NODE_CLASS_MAPPINGS = {
@@ -240,6 +330,7 @@ NODE_CLASS_MAPPINGS = {
     "AVASRTimestamp": AVASRTimestamp,
     "AVFormat2Subtitle": AVFormat2Subtitle,
     "AVSaveSubtitles": AVSaveSubtitles,
+    "AVLoadAudioFromURL": AVLoadAudioFromURL,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -247,4 +338,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "AVASRTimestamp": "AV ASR Timestamp",
     "AVFormat2Subtitle": "AV Format to Subtitle",
     "AVSaveSubtitles": "AV Save Subtitles",
+    "AVLoadAudioFromURL": "AV Load Audio From URL",
 }

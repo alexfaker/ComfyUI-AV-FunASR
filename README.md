@@ -19,7 +19,7 @@ python版本  3.13
 
 ```
 cd ComfyUI/custom_nodes
-git clone https://github.com/avenstack/ComfyUI-AV-FunASR.git
+git clone https://github.com/alexfaker/ComfyUI-AV-FunASR.git
 cd ComfyUI-AV-FunASR
 在comfyui的python虚拟环境安装依赖
 pip install -r requirements.txt
